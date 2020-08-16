@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart';
 import 'package:flutter_app/nettest.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_app/data.dart';
 
 void main() {
-//  runApp(MyApp());
-//  runApp(CustomApp());
-//    runApp(LauncherApp());
-    runApp(NetTest());
+//    runApp(NetTest());
+testException();
 }
 
 
