@@ -3,10 +3,14 @@ import 'package:english_words/english_words.dart';
 import 'package:flutter_app/nettest.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_app/data.dart';
+import 'package:flutter_app/plugin.dart';
 
 void main() {
+
+  runApp(PluginApp());
+
 //    runApp(NetTest());
-testException();
+//testException();
 }
 
 
