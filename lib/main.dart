@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart';
-import 'package:flutter_app/nettest.dart';
+import 'package:flutter_app/assembly.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:flutter_app/data.dart';
-import 'package:flutter_app/plugin.dart';
 
 void main() {
 
-  runApp(PluginApp());
+  runApp(LoginPageDemo());
 
+//  runApp(LongItemListDemo(
+//    items: new List<String>.generate(500, (index) => "Item $index"),
+//  ));
+
+//  runApp(PluginApp());
 //    runApp(NetTest());
 //testException();
 }
