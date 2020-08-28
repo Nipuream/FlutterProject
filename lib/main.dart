@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart';
-import 'package:flutter_app/assembly.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'mdassembly.dart';
 
 void main() {
 
-  runApp(LoginPageDemo());
+  runApp(MyMaterialApp());
 
 //  runApp(LongItemListDemo(
 //    items: new List<String>.generate(500, (index) => "Item $index"),
