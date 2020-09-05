@@ -2,6 +2,12 @@
 
 import 'package:flutter/material.dart';
 
+
+void main(){
+  runApp(LayoutDemoApp());
+}
+
+
 class LayoutDemoApp extends StatelessWidget {
 
   @override
@@ -17,7 +23,11 @@ class LayoutDemoApp extends StatelessWidget {
 //       home: new FittedBoxLayoutDemo(),
 //         home: new StackPosition(),
 //          home: new IndexStackLayoutDemo(),
-        home: OverflowBoxLayoutDemo(),
+//        home: OverflowBoxLayoutDemo(),
+//         home: TransformLayoutDemo(),
+//          home: BaselineDemoLayout(),
+//         home: OffStageLayoutDemo(title: '控制隐藏还是显示',),
+          home: WrapDemo(),
     );
   }
 }
@@ -436,11 +446,197 @@ class OverflowBoxLayoutDemo extends StatelessWidget {
       ),
     );
   }
-  
 }
 
 
+///
+/// 矩阵变化
+///
+class TransformLayoutDemo extends StatelessWidget {
 
+  @override
+  Widget build(BuildContext context) {
+
+    return new Scaffold(
+      appBar: AppBar(
+        title: Text("Transform 矩阵转换示例"),
+      ),
+      body: new Center(
+        child: Container(
+          color: Colors.grey,
+          child: Transform(
+            alignment: Alignment.topRight,  //对齐方式
+            transform: Matrix4.rotationZ(0.3), //四维变化
+            child: Container(
+              padding: const EdgeInsets.all(8.0),
+              color: const Color(0xFFE8581C),
+              child: const Text('Transform 矩阵转换'),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+///
+///  Baseline (基准线布局)
+///
+class BaselineDemoLayout extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+
+    return new Scaffold(
+      appBar: new AppBar(
+        title: Text('Baseline 基准线布局示例'),
+      ),
+      body: new Row(
+        //水平等间距排列子组件
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          //设置基准线
+          new Baseline(
+              baseline: 80.0,
+              //对齐字符底部水平线
+              baselineType: TextBaseline.alphabetic,
+              child: new Text(
+                'AaBbCc',
+                style: TextStyle(
+                  fontSize: 18.0,
+                ),
+              ),
+          ),
+          new Baseline(
+            baseline: 80.0,
+            baselineType: TextBaseline.alphabetic,
+            child: new Container(
+              width: 40.0,
+              height: 40.0,
+              color: Colors.green,
+            ),
+          ),
+          new Baseline(
+            baseline: 80.0,
+            baselineType: TextBaseline.alphabetic,
+            child: Text(
+              'DdEeFf',
+              style: TextStyle(
+                fontSize: 26.0,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+
+///
+/// Offstage 控制是否显示组件
+///
+class OffStageLayoutDemo extends StatefulWidget {
+
+  final String title;
+
+  OffStageLayoutDemo({Key key,this.title}):super(key:key);
+
+  @override
+  State<StatefulWidget> createState() {
+    return _MyOffState();
+  }
+}
+
+class _MyOffState extends State<OffStageLayoutDemo> {
+
+  //状态控制是否显示文本组件
+  bool offstate = true;
+
+  @override
+  Widget build(BuildContext context) {
+
+    return new Scaffold(
+      appBar: new AppBar(
+        title: new Text(widget.title),
+      ),
+      body: Center(
+        child: new Offstage(
+          offstage: offstate, //控制是否显示
+          child: new Text(
+            '我出来了',
+            style: TextStyle(
+              fontSize: 36.0,
+            ),
+          ),
+        ),
+      ),
+
+      floatingActionButton: new FloatingActionButton(
+          onPressed: (){
+            setState(() {
+              offstate = !offstate;
+            });
+          },
+        tooltip: '显示隐藏',
+        child: new Icon(Icons.flip),
+      ),
+    );
+  }
+}
+
+///
+/// Wrap 按宽高自动换布局
+///
+
+class WrapDemo extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+
+    return new Scaffold(
+      appBar: new AppBar(
+        title: Text('Wrap按宽高自动换行布局'),
+      ),
+      body: Wrap(
+        spacing: 8.0, //Chip 之间的间隙大小
+        runSpacing: 4.0, //行之间的间隙大小
+        children: <Widget>[
+          Chip(
+            //添加圆形头像
+            avatar: CircleAvatar(
+              backgroundColor: Colors.lightGreen.shade800,
+              child: Text('西门', style: TextStyle(fontSize: 10.0)),
+            ),
+            label: Text('西门吹雪'),
+          ),
+          Chip(
+            avatar: CircleAvatar(
+              backgroundColor: Colors.lightBlue.shade700,
+              child: Text('司空', style: TextStyle(fontSize: 10.0),),
+            ),
+            label: Text('司空摘星'),
+          ),
+          Chip(
+            avatar: CircleAvatar(
+              backgroundColor: Colors.orange.shade800,
+              child: Text('婉清', style: TextStyle(fontSize: 10.0),),
+            ),
+            label: Text('木婉清'),
+          ),
+          Chip(
+            avatar: CircleAvatar(
+              backgroundColor: Colors.blue.shade900,
+              child: Text('一郎',style: TextStyle(fontSize: 10.0),),
+            ),
+            label: Text('萧十一郎'),
+          ),
+        ],
+      ),
+    );
+  }
+
+}
 
 
 
